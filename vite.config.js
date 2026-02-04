@@ -5,6 +5,12 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import ElementPlus from 'unplugin-element-plus/vite' // 不加这个配置，ElMessage出不来
 
+// 统一后端基础地址（开发/生产分离，只写基础路径，不写具体接口）
+const baseApiUrl = {
+  development: 'http://127.0.0.1:28019/manage-api/v1', // 开发环境：后端接口公共基础路径
+  beta: 'http://backend-api-02.newbee.ltd/manage-api/v1', // 测试环境
+  release: 'http://backend-api-02.newbee.ltd/manage-api/v1' // 生产环境
+}
 // https://vitejs.dev/config/
 export default ({ mode }) => defineConfig({
   plugins: [
@@ -27,7 +33,7 @@ export default ({ mode }) => defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://backend-api-02.newbee.ltd/manage-api/v1', // 凡是遇到 /api 路径的请求，都映射到 target 属性
+        target: baseApiUrl[mode], // 代理到对应环境的后端接口公共基础路径
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '') // 重写 api 为 空，就是去掉它
       }
