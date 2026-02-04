@@ -14,7 +14,12 @@ const baseApiUrl = {
 // https://vitejs.dev/config/
 export default ({ mode }) => defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        // 开启Vue模板的HMR（Vite 2.x需显式开启，默认部分场景关闭）
+        hot: true
+      }
+    }),
     // 按需引入，主题色的配置，需要加上 importStyle: 'sass'
     Components({
       resolvers: [ElementPlusResolver({
