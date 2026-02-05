@@ -81,7 +81,7 @@ import { localGet, pathMap } from '@/utils'
 const noMenu = ['/login']
 const router = useRouter()
 const state = reactive({
-  showMenu: true,
+  showMenu: false,
   defaultOpen: ['1', '2', '3', '4'],
   currentPath: '/',
 })
